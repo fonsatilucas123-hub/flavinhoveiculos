@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flavinho Veículos</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+    }
+
+    header {
+      background: #000;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 3px solid red;
+    }
+
+    header img {
+      max-width: 280px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      color: red;
+      margin: 10px 0 0;
+      font-size: 32px;
+    }
+
+    header p {
+      margin: 10px 0;
+      color: #fff;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .banner {
+      background: linear-gradient(rgba(0,0,0,0.50), rgba(0,0,0,0.50)), url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c') center/cover;
+      padding: 110px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .banner h2 {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    .banner p {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background: red;
+      color: #fff;
+      padding: 14px 24px;
+      text-decoration: none;
+      border-radius: 10px;
+      display: inline-block;
+      font-weight: bold;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid red;
+      color: #fff;
+    }
+
+    .section {
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      max-width: 1180px;
+      margin: 0 auto 24px;
+      text-align: left;
+      font-size: 34px;
+      color: #fff;
+    }
+
+    .cars {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 20px;
+      max-width: 1180px;
+      margin: 0 auto;
+      align-items: stretch;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .cars::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .cars::-webkit-scrollbar-thumb {
+      background: red;
+      border-radius: 10px;
+    }
+
+    .cars::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    .card {
+      background: #111;
+      border-radius: 18px;
+      width: 260px;
+      min-width: 260px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.40);
+      text-align: left;
+      border: 1px solid #222;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 210px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .slider img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .slider img.active {
+      display: block;
+    }
+
+    .detail-slider {
+      height: 420px;
+      border-radius: 18px;
+    }
+
+    .detail-slider img {
+      height: 420px;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 2;
+    }
+
+    .slider-btn.prev { left: 10px; }
+    .slider-btn.next { right: 10px; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.65);
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: red;
+    }
+
+    .card-body {
+      padding: 16px 18px 18px;
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin: 0 0 8px;
+      color: #fff;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #ccc;
+      text-transform: uppercase;
+      line-height: 1.5;
+      min-height: 42px;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: bold;
+      color: red;
+      margin: 18px 0 6px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .city {
+      color: #bbb;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .interest-btn {
+      display: block;
+      width: 100%;
+    }
+
+    .details-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      gap: 28px;
+    }
+
+    .vehicle-detail {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 22px;
+      padding: 24px;
+      scroll-margin-top: 100px;
+    }
+
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .detail-info {
+      background: #0d0d0d;
+      border: 1px solid #252525;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .detail-info h3 {
+      font-size: 34px;
+      margin: 0 0 10px;
+      color: #fff;
+    }
+
+    .detail-info .detail-subtitle {
+      color: #d0d0d0;
+      font-size: 16px;
+      line-height: 1.6;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .detail-info .detail-price {
+      color: red;
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .detail-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .detail-item {
+      background: #181818;
+      border: 1px solid #272727;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .detail-item span {
+      display: block;
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .detail-item strong {
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .detail-description {
+      color: #ccc;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .detail-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .instagram-box,
+    .services-box,
+    .footer {
+      text-align: center;
+    }
+
+    .footer {
+      background: #000;
+      padding: 24px;
+      border-top: 3px solid red;
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-slider,
+      .detail-slider img {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .banner h2 {
+        font-size: 34px;
+      }
+
+      .banner p {
+        font-size: 16px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 340px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .detail-info h3 {
+        font-size: 28px;
+      }
+
+      .detail-price {
+        font-size: 28px;
+      }
+
+      .detail-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="fdsfsdgfsgfs.png" alt="Flavinho Veículos">
+    <h1>FLAVINHO VEÍCULOS</h1>
+    <p>19 anos acelerando histórias em Lins/SP</p>
+    <div class="top-buttons">
+      <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761" target="_blank">Falar no WhatsApp</a>
+      <a class="btn" href="https://instagram.com/flavinhoveiculos1" target="_blank">Ver Instagram</a>
+    </div>
+  </header>
+
+  <section class="banner">
+    <h2>Seu próximo carro está aqui</h2>
+    <p>Qualidade • Procedência • Confiança</p>
+    <a class="btn" href="#carros">Ver veículos</a>
+  </section>
+
+  <section class="section" id="carros">
+    <h2 class="section-title">Recomendados para você</h2>
+
+    <div class="cars">
+
+      <div class="card">
+        <div class="slider" id="slider-civic">
+          <img src="WhatsApp Image 2026-03-26 at 16.57.22.jpeg" alt="Honda Civic LXR 2014 - foto 1" class="active">
+          <img src="WhatsApp Image 2026-03-26 at 16.57.22 (1).jpeg" alt="Honda Civic LXR 2014 - foto 2">
+          <img src="WhatsApp Image 2026-03-26 at 16.57.23.jpeg" alt="Honda Civic LXR 2014 - foto 3">
+          <img src="WhatsApp Image 2026-03-26 at 16.57.23 (1).jpeg" alt="Honda Civic LXR 2014 - foto 4">
+          <button class="slider-btn prev" onclick="moveSlide('slider-civic', -1)">❮</button>
+          <button class="slider-btn next" onclick="moveSlide('slider-civic', 1)">❯</button>
+          <div class="dots">
+            <span class="dot active" onclick="currentSlide('slider-civic', 0)"></span>
+            <span class="dot" onclick="currentSlide('slider-civic', 1)"></span>
+            <span class="dot" onclick="currentSlide('slider-civic', 2)"></span>
+            <span class="dot" onclick="currentSlide('slider-civic', 3)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>HONDA CIVIC LXR</h3>
+          <div class="price">R$ 150.000</div>
+          <div class="meta"><span>2014/2014</span></div>
+          <div class="city">📍 Lins - SP</div>
+          <div class="card-actions">
+            <a class="btn interest-btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Honda%20Civic%20LXR%202014" target="_blank">Tenho interesse</a>
+            <a class="btn btn-outline interest-btn" href="#detalhe-civic">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="slider" id="slider-gol">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.26.jpeg" alt="Gol Seleção 2014 - foto 1" class="active">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.26 (1).jpeg" alt="Gol Seleção 2014 - foto 2">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.26 (2).jpeg" alt="Gol Seleção 2014 - foto 3">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.26 (3).jpeg" alt="Gol Seleção 2014 - foto 4">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.27.jpeg" alt="Gol Seleção 2014 - foto 5">
+          <img src="WhatsApp Image 2026-03-26 at 17.33.28.jpeg" alt="Gol Seleção 2014 - foto 6">
+          <button class="slider-btn prev" onclick="moveSlide('slider-gol', -1)">❮</button>
+          <button class="slider-btn next" onclick="moveSlide('slider-gol', 1)">❯</button>
+          <div class="dots">
+            <span class="dot active" onclick="currentSlide('slider-gol', 0)"></span>
+            <span class="dot" onclick="currentSlide('slider-gol', 1)"></span>
+            <span class="dot" onclick="currentSlide('slider-gol', 2)"></span>
+            <span class="dot" onclick="currentSlide('slider-gol', 3)"></span>
+            <span class="dot" onclick="currentSlide('slider-gol', 4)"></span>
+            <span class="dot" onclick="currentSlide('slider-gol', 5)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>GOL SELEÇÃO</h3>
+          <div class="price">R$ 50.000</div>
+          <div class="meta"><span>2014/2014</span></div>
+          <div class="city">📍 Lins - SP</div>
+          <div class="card-actions">
+            <a class="btn interest-btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Gol%20Sele%C3%A7%C3%A3o%202014" target="_blank">Tenho interesse</a>
+            <a class="btn btn-outline interest-btn" href="#detalhe-gol">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="slider" id="slider-classic">
+          <img src="WhatsApp Image 2026-03-26 at 17.34.45.jpeg" alt="Classic Life 2008 - foto 1" class="active">
+          <img src="WhatsApp Image 2026-03-26 at 17.34.44.jpeg" alt="Classic Life 2008 - foto 2">
+          <img src="WhatsApp Image 2026-03-26 at 17.34.44 (2).jpeg" alt="Classic Life 2008 - foto 3">
+          <img src="WhatsApp Image 2026-03-26 at 17.34.43.jpeg" alt="Classic Life 2008 - foto 4">
+          <img src="WhatsApp Image 2026-03-26 at 17.34.43 (1).jpeg" alt="Classic Life 2008 - foto 5">
+          <button class="slider-btn prev" onclick="moveSlide('slider-classic', -1)">❮</button>
+          <button class="slider-btn next" onclick="moveSlide('slider-classic', 1)">❯</button>
+          <div class="dots">
+            <span class="dot active" onclick="currentSlide('slider-classic', 0)"></span>
+            <span class="dot" onclick="currentSlide('slider-classic', 1)"></span>
+            <span class="dot" onclick="currentSlide('slider-classic', 2)"></span>
+            <span class="dot" onclick="currentSlide('slider-classic', 3)"></span>
+            <span class="dot" onclick="currentSlide('slider-classic', 4)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>CLASSIC LIFE</h3>
+          <div class="price">R$ 30.000</div>
+          <div class="meta"><span>2008/2008</span></div>
+          <div class="city">📍 Lins - SP</div>
+          <div class="card-actions">
+            <a class="btn interest-btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Classic%20Life%202008" target="_blank">Tenho interesse</a>
+            <a class="btn btn-outline interest-btn" href="#detalhe-classic">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="slider" id="slider-fiesta">
+          <img src="WhatsApp Image 2026-03-26 at 17.54.21.jpeg" class="active" alt="Fiesta Hatch 2014 - foto 1">
+          <img src="WhatsApp Image 2026-03-26 at 17.54.21 (1).jpeg" alt="Fiesta Hatch 2014 - foto 2">
+          <img src="WhatsApp Image 2026-03-26 at 17.54.21 (3).jpeg" alt="Fiesta Hatch 2014 - foto 3">
+          <img src="WhatsApp Image 2026-03-26 at 17.54.21 (4).jpeg" alt="Fiesta Hatch 2014 - foto 4">
+          <button class="slider-btn prev" onclick="moveSlide('slider-fiesta', -1)">❮</button>
+          <button class="slider-btn next" onclick="moveSlide('slider-fiesta', 1)">❯</button>
+          <div class="dots">
+            <span class="dot active" onclick="currentSlide('slider-fiesta',0)"></span>
+            <span class="dot" onclick="currentSlide('slider-fiesta',1)"></span>
+            <span class="dot" onclick="currentSlide('slider-fiesta',2)"></span>
+            <span class="dot" onclick="currentSlide('slider-fiesta',3)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>FIESTA HATCH</h3>
+          <div class="price">R$ 43.000</div>
+          <div class="meta"><span>2014/2014</span></div>
+          <div class="city">📍 Lins - SP</div>
+          <div class="card-actions">
+            <a class="btn interest-btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Fiesta%20Hatch%202014" target="_blank">Tenho interesse</a>
+            <a class="btn btn-outline interest-btn" href="#detalhe-fiesta">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="slider" id="slider-duster">
+          <img src="WhatsApp Image 2026-03-26 at 18.00.15.jpeg" class="active" alt="Duster Techroad 2013 - foto 1">
+          <img src="WhatsApp Image 2026-03-26 at 18.00.16.jpeg" alt="Duster Techroad 2013 - foto 2">
+          <img src="WhatsApp Image 2026-03-26 at 18.00.16 (1).jpeg" alt="Duster Techroad 2013 - foto 3">
+          <img src="WhatsApp Image 2026-03-26 at 18.00.16 (2).jpeg" alt="Duster Techroad 2013 - foto 4">
+          <img src="WhatsApp Image 2026-03-26 at 18.00.16 (3).jpeg" alt="Duster Techroad 2013 - foto 5">
+          <button class="slider-btn prev" onclick="moveSlide('slider-duster', -1)">❮</button>
+          <button class="slider-btn next" onclick="moveSlide('slider-duster', 1)">❯</button>
+          <div class="dots">
+            <span class="dot active" onclick="currentSlide('slider-duster',0)"></span>
+            <span class="dot" onclick="currentSlide('slider-duster',1)"></span>
+            <span class="dot" onclick="currentSlide('slider-duster',2)"></span>
+            <span class="dot" onclick="currentSlide('slider-duster',3)"></span>
+            <span class="dot" onclick="currentSlide('slider-duster',4)"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>RENAULT DUSTER TECHROAD</h3>
+          <div class="price">R$ 80.000</div>
+          <div class="meta"><span>2013/2013</span></div>
+          <div class="city">📍 Lins - SP</div>
+          <div class="card-actions">
+            <a class="btn interest-btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20na%20Duster%202013" target="_blank">Tenho interesse</a>
+            <a class="btn btn-outline interest-btn" href="#detalhe-duster">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="detalhes">
+    <h2 class="section-title">Detalhes dos veículos</h2>
+    <div class="details-wrap">
+
+      <div class="vehicle-detail" id="detalhe-civic">
+        <div class="detail-layout">
+          <div class="slider detail-slider" id="detail-slider-civic">
+            <img src="WhatsApp Image 2026-03-26 at 16.57.22.jpeg" class="active" alt="Honda Civic LXR 2014 - foto 1">
+            <img src="WhatsApp Image 2026-03-26 at 16.57.22 (1).jpeg" alt="Honda Civic LXR 2014 - foto 2">
+            <img src="WhatsApp Image 2026-03-26 at 16.57.23.jpeg" alt="Honda Civic LXR 2014 - foto 3">
+            <img src="WhatsApp Image 2026-03-26 at 16.57.23 (1).jpeg" alt="Honda Civic LXR 2014 - foto 4">
+            <button class="slider-btn prev" onclick="moveSlide('detail-slider-civic', -1)">❮</button>
+            <button class="slider-btn next" onclick="moveSlide('detail-slider-civic', 1)">❯</button>
+            <div class="dots">
+              <span class="dot active" onclick="currentSlide('detail-slider-civic', 0)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-civic', 1)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-civic', 2)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-civic', 3)"></span>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h3>Honda Civic LXR</h3>
+            <div class="detail-subtitle">2014 • completo • automático • flex</div>
+            <div class="detail-price">R$ 00.000</div>
+            <div class="detail-list">
+              <div class="detail-item"><span>Ano</span><strong>2014/2014</strong></div>
+              <div class="detail-item"><span>Câmbio</span><strong>Automático</strong></div>
+              <div class="detail-item"><span>Combustível</span><strong>Flex</strong></div>
+              <div class="detail-item"><span>Cidade</span><strong>Lins - SP</strong></div>
+            </div>
+            <div class="detail-description">Honda Civic LXR muito bonito, completo, automático e flex. Um sedã confortável, elegante e pronto para o dia a dia.</div>
+            <div class="detail-buttons">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Honda%20Civic%20LXR%202014" target="_blank">Tenho interesse</a>
+              <a class="btn btn-outline" href="#carros">Voltar para os carros</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-detail" id="detalhe-gol">
+        <div class="detail-layout">
+          <div class="slider detail-slider" id="detail-slider-gol">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.26.jpeg" class="active" alt="Gol Seleção 2014 - foto 1">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.26 (1).jpeg" alt="Gol Seleção 2014 - foto 2">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.26 (2).jpeg" alt="Gol Seleção 2014 - foto 3">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.26 (3).jpeg" alt="Gol Seleção 2014 - foto 4">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.27.jpeg" alt="Gol Seleção 2014 - foto 5">
+            <img src="WhatsApp Image 2026-03-26 at 17.33.28.jpeg" alt="Gol Seleção 2014 - foto 6">
+            <button class="slider-btn prev" onclick="moveSlide('detail-slider-gol', -1)">❮</button>
+            <button class="slider-btn next" onclick="moveSlide('detail-slider-gol', 1)">❯</button>
+            <div class="dots">
+              <span class="dot active" onclick="currentSlide('detail-slider-gol', 0)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-gol', 1)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-gol', 2)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-gol', 3)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-gol', 4)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-gol', 5)"></span>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h3>Gol Seleção</h3>
+            <div class="detail-subtitle">2014 • motor 1.0 • completo</div>
+            <div class="detail-price">R$ 00.000</div>
+            <div class="detail-list">
+              <div class="detail-item"><span>Ano</span><strong>2014/2014</strong></div>
+              <div class="detail-item"><span>Motor</span><strong>1.0</strong></div>
+              <div class="detail-item"><span>Versão</span><strong>Seleção</strong></div>
+              <div class="detail-item"><span>Cidade</span><strong>Lins - SP</strong></div>
+            </div>
+            <div class="detail-description">Gol Seleção completo, econômico e ótimo para quem procura um carro confiável para o uso diário.</div>
+            <div class="detail-buttons">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Gol%20Sele%C3%A7%C3%A3o%202014" target="_blank">Tenho interesse</a>
+              <a class="btn btn-outline" href="#carros">Voltar para os carros</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-detail" id="detalhe-classic">
+        <div class="detail-layout">
+          <div class="slider detail-slider" id="detail-slider-classic">
+            <img src="WhatsApp Image 2026-03-26 at 17.34.45.jpeg" class="active" alt="Classic Life 2008 - foto 1">
+            <img src="WhatsApp Image 2026-03-26 at 17.34.44.jpeg" alt="Classic Life 2008 - foto 2">
+            <img src="WhatsApp Image 2026-03-26 at 17.34.44 (2).jpeg" alt="Classic Life 2008 - foto 3">
+            <img src="WhatsApp Image 2026-03-26 at 17.34.43.jpeg" alt="Classic Life 2008 - foto 4">
+            <img src="WhatsApp Image 2026-03-26 at 17.34.43 (1).jpeg" alt="Classic Life 2008 - foto 5">
+            <button class="slider-btn prev" onclick="moveSlide('detail-slider-classic', -1)">❮</button>
+            <button class="slider-btn next" onclick="moveSlide('detail-slider-classic', 1)">❯</button>
+            <div class="dots">
+              <span class="dot active" onclick="currentSlide('detail-slider-classic', 0)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-classic', 1)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-classic', 2)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-classic', 3)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-classic', 4)"></span>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h3>Classic Life</h3>
+            <div class="detail-subtitle">2008 • vidros elétricos • trava • alarme</div>
+            <div class="detail-price">R$ 00.000</div>
+            <div class="detail-list">
+              <div class="detail-item"><span>Ano</span><strong>2008/2008</strong></div>
+              <div class="detail-item"><span>Versão</span><strong>Life</strong></div>
+              <div class="detail-item"><span>Opcionais</span><strong>Vidros, trava e alarme</strong></div>
+              <div class="detail-item"><span>Cidade</span><strong>Lins - SP</strong></div>
+            </div>
+            <div class="detail-description">Classic Life bem conservado, prático, econômico e com acessórios que fazem diferença no dia a dia.</div>
+            <div class="detail-buttons">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Classic%20Life%202008" target="_blank">Tenho interesse</a>
+              <a class="btn btn-outline" href="#carros">Voltar para os carros</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-detail" id="detalhe-fiesta">
+        <div class="detail-layout">
+          <div class="slider detail-slider" id="detail-slider-fiesta">
+            <img src="WhatsApp Image 2026-03-26 at 17.54.21.jpeg" class="active" alt="Fiesta Hatch 2014 - foto 1">
+            <img src="WhatsApp Image 2026-03-26 at 17.54.21 (1).jpeg" alt="Fiesta Hatch 2014 - foto 2">
+            <img src="WhatsApp Image 2026-03-26 at 17.54.21 (3).jpeg" alt="Fiesta Hatch 2014 - foto 3">
+            <img src="WhatsApp Image 2026-03-26 at 17.54.21 (4).jpeg" alt="Fiesta Hatch 2014 - foto 4">
+            <button class="slider-btn prev" onclick="moveSlide('detail-slider-fiesta', -1)">❮</button>
+            <button class="slider-btn next" onclick="moveSlide('detail-slider-fiesta', 1)">❯</button>
+            <div class="dots">
+              <span class="dot active" onclick="currentSlide('detail-slider-fiesta', 0)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-fiesta', 1)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-fiesta', 2)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-fiesta', 3)"></span>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h3>Fiesta Hatch</h3>
+            <div class="detail-subtitle">2014 • 1.0 • completo • flex • impecável</div>
+            <div class="detail-price">R$ 00.000</div>
+            <div class="detail-list">
+              <div class="detail-item"><span>Ano</span><strong>2014/2014</strong></div>
+              <div class="detail-item"><span>Motor</span><strong>1.0</strong></div>
+              <div class="detail-item"><span>Combustível</span><strong>Flex</strong></div>
+              <div class="detail-item"><span>Cidade</span><strong>Lins - SP</strong></div>
+            </div>
+            <div class="detail-description">Fiesta Hatch impecável, completo e flex. Uma ótima opção para quem quer conforto, economia e visual bonito.</div>
+            <div class="detail-buttons">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Fiesta%20Hatch%202014" target="_blank">Tenho interesse</a>
+              <a class="btn btn-outline" href="#carros">Voltar para os carros</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-detail" id="detalhe-duster">
+        <div class="detail-layout">
+          <div class="slider detail-slider" id="detail-slider-duster">
+            <img src="WhatsApp Image 2026-03-26 at 18.00.15.jpeg" class="active" alt="Duster Techroad 2013 - foto 1">
+            <img src="WhatsApp Image 2026-03-26 at 18.00.16.jpeg" alt="Duster Techroad 2013 - foto 2">
+            <img src="WhatsApp Image 2026-03-26 at 18.00.16 (1).jpeg" alt="Duster Techroad 2013 - foto 3">
+            <img src="WhatsApp Image 2026-03-26 at 18.00.16 (2).jpeg" alt="Duster Techroad 2013 - foto 4">
+            <img src="WhatsApp Image 2026-03-26 at 18.00.16 (3).jpeg" alt="Duster Techroad 2013 - foto 5">
+            <button class="slider-btn prev" onclick="moveSlide('detail-slider-duster', -1)">❮</button>
+            <button class="slider-btn next" onclick="moveSlide('detail-slider-duster', 1)">❯</button>
+            <div class="dots">
+              <span class="dot active" onclick="currentSlide('detail-slider-duster',0)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-duster',1)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-duster',2)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-duster',3)"></span>
+              <span class="dot" onclick="currentSlide('detail-slider-duster',4)"></span>
+            </div>
+          </div>
+          <div class="detail-info">
+            <h3>Renault Duster Techroad</h3>
+            <div class="detail-subtitle">2013 • 1.6 • completa</div>
+            <div class="detail-price">R$ 00.000</div>
+            <div class="detail-list">
+              <div class="detail-item"><span>Ano</span><strong>2013/2013</strong></div>
+              <div class="detail-item"><span>Motor</span><strong>1.6</strong></div>
+              <div class="detail-item"><span>Versão</span><strong>Techroad</strong></div>
+              <div class="detail-item"><span>Cidade</span><strong>Lins - SP</strong></div>
+            </div>
+            <div class="detail-description">Duster Techroad espaçosa, robusta e completa. Ideal para quem quer um SUV confortável e pronto para a rotina.</div>
+            <div class="detail-buttons">
+              <a class="btn" href="https://api.whatsapp.com/send?phone=14997425761&text=Ol%C3%A1%2C%20tenho%20interesse%20na%20Duster%202013" target="_blank">Tenho interesse</a>
+              <a class="btn btn-outline" href="#carros">Voltar para os carros</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section instagram-box">
+    <h2>Instagram</h2>
+    <p>Siga a gente e veja nossos carros novos:</p>
+    <a class="btn" href="https://instagram.com/flavinhoveiculos1" target="_blank">@flavinhoveiculos1</a>
+  </section>
+
+  <section class="section services-box">
+    <h2>Serviços</h2>
+    <p>Venda • Troca • Financia • Consignação</p>
+  </section>
+
+  <footer class="footer">
+    <p>WhatsApp: (14) 99742-5761</p>
+    <p>Fixo: (14) 3532-1358</p>
+    <p>Av. Nicolau Zarvos, 1074 - Lins/SP</p>
+  </footer>
+
+  <script>
+    const sliders = {};
+
+    function updateSlider(sliderId) {
+      const slider = document.getElementById(sliderId);
+      if (!slider) return;
+
+      const images = slider.querySelectorAll('img');
+      const dots = slider.querySelectorAll('.dot');
+      const index = sliders[sliderId] || 0;
+
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function moveSlide(sliderId, step) {
+      const slider = document.getElementById(sliderId);
+      if (!slider) return;
+
+      const total = slider.querySelectorAll('img').length;
+      sliders[sliderId] = ((sliders[sliderId] || 0) + step + total) % total;
+      updateSlider(sliderId);
+    }
+
+    function currentSlide(sliderId, index) {
+      sliders[sliderId] = index;
+      updateSlider(sliderId);
+    }
+  </script>
+
+</body>
+</html>
