@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flavinho Veículos</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; background:#0a0a0a; color:#fff; }
+header { background:#000; padding:20px; text-align:center; border-bottom:2px solid red; }
+header h1 { color:red; margin:0; }
+.banner { background:url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c') center/cover; padding:100px 20px; text-align:center; }
+.banner h2 { font-size:40px; }
+.btn { background:red; color:#fff; padding:15px 25px; text-decoration:none; border-radius:5px; display:inline-block; margin-top:20px; }
+.section { padding:40px 20px; text-align:center; }
+.cars { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
+.card { background:#111; padding:15px; border-radius:10px; width:250px; }
+.card img { width:100%; border-radius:10px; }
+.footer { background:#000; padding:20px; text-align:center; border-top:2px solid red; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>FLAVINHO VEÍCULOS</h1>
+<p>19 anos acelerando histórias em Lins/SP</p>
+<div style="display:flex; justify-content:center; gap:15px; margin-top:20px;">
+<a class="btn" href="https://api.whatsapp.com/send?phone=5514997425761" target="_blank">Falar no WhatsApp</a>
+<a class="btn" href="https://instagram.com/flavinhoveiculos1" target="_blank">Ver Instagram</a>
+<a class="btn" href="login.html">Área do proprietário</a>
+</div>
+</header>
+
+<div class="banner">
+<h2>Seu próximo carro está aqui</h2>
+<p>Qualidade • Procedência • Confiança</p>
+<a class="btn" href="#carros">Ver veículos</a>
+</div>
+
+<div class="section" id="carros">
+<h2>Carros em Destaque</h2>
+<div class="cars" id="carsFeed">
+  <p>Carregando veículos...</p>
+</div>
+</div>
+
+<div class="section">
+<h2>Instagram</h2>
+<p>Siga a gente e veja nossos carros novos:</p>
+<a class="btn" href="https://instagram.com/flavinhoveiculos1" target="_blank">@flavinhoveiculos1</a>
+</div>
+
+<div class="section">
+<h2>Serviços</h2>
+<p>Venda • Troca • Financia • Consignação</p>
+</div>
+
+<div class="footer">
+<p>WhatsApp: (14) 99742-5761</p>
+<p>Fixo: (14) 3532-1358</p>
+<p>Av. Nicolau Zarvos, 1074 - Lins/SP</p>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
